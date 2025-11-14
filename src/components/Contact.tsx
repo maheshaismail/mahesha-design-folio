@@ -20,7 +20,7 @@ const Contact = () => {
       icon: <MessageCircle className="w-6 h-6" />,
       label: "WhatsApp",
       value: "0764 359 438",
-      link: "https://wa.me/255764359438",
+      link: "https://wa.me/255764359438?text=Hi%20Ismail!%20I%20came%20across%20your%20portfolio%20and%20I'm%20interested%20in%20discussing%20a%20UI/UX%20design%20project%20with%20you.",
     },
   ];
 
