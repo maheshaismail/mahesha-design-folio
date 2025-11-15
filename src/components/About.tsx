@@ -1,8 +1,38 @@
 import { User, Award, Briefcase } from "lucide-react";
 import { Card } from "@/components/ui/card";
+import { useEffect, useState } from "react";
+import { supabase } from "@/integrations/supabase/client";
 import profileImage from "@/assets/profile-new.jpg";
 
 const About = () => {
+  const [processedImage, setProcessedImage] = useState<string>("");
+  const [isProcessing, setIsProcessing] = useState(true);
+
+  useEffect(() => {
+    const removeBackground = async () => {
+      try {
+        const { data, error } = await supabase.functions.invoke('remove-background', {
+          body: { imageUrl: profileImage }
+        });
+
+        if (error) throw error;
+
+        if (data?.imageUrl) {
+          setProcessedImage(data.imageUrl);
+        } else {
+          setProcessedImage(profileImage);
+        }
+      } catch (error) {
+        console.error("Error removing background:", error);
+        setProcessedImage(profileImage);
+      } finally {
+        setIsProcessing(false);
+      }
+    };
+
+    removeBackground();
+  }, []);
+
   const highlights = [
     {
       icon: <User className="w-8 h-8 text-primary" />,
@@ -25,15 +55,17 @@ const About = () => {
     <section id="about" className="section-padding bg-muted">
       <div className="container-custom">
         <div className="text-center mb-16 animate-fade-in">
-          <div className="mb-8 flex justify-center">
-            <div className="relative">
-              <img
-                src={profileImage}
-                alt="Ismail Mahesha - UI/UX Designer"
-                className="w-48 h-48 rounded-full object-cover shadow-xl ring-4 ring-primary/20"
-              />
+          {!isProcessing && processedImage && (
+            <div className="mb-8 flex justify-center">
+              <div className="relative">
+                <img
+                  src={processedImage}
+                  alt="Ismail Mahesha - UI/UX Designer"
+                  className="w-48 h-48 rounded-full object-cover shadow-xl ring-4 ring-primary/20"
+                />
+              </div>
             </div>
-          </div>
+          )}
           <h2 className="text-4xl md:text-5xl font-bold mb-4">About Me</h2>
           <div className="w-20 h-1 bg-primary mx-auto mb-6"></div>
           <p className="text-lg text-muted-foreground max-w-3xl mx-auto">
