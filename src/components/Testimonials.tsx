@@ -1,30 +1,23 @@
 import { Card } from "@/components/ui/card";
 import { Quote, Star } from "lucide-react";
+import { useQuery } from "@tanstack/react-query";
+import { supabase } from "@/integrations/supabase/client";
+import ReviewForm from "./ReviewForm";
 
 const Testimonials = () => {
-  const testimonials = [
-    {
-      name: "John Anderson",
-      role: "Product Manager",
-      company: "Tech Solutions Inc.",
-      content: "Great designer! Delivered high-quality UI/UX work on time. The attention to detail and creativity exceeded our expectations.",
-      rating: 5,
+  const { data: testimonials = [] } = useQuery({
+    queryKey: ["testimonials"],
+    queryFn: async () => {
+      const { data, error } = await supabase
+        .from("testimonials")
+        .select("*")
+        .eq("approved", true)
+        .order("created_at", { ascending: false });
+
+      if (error) throw error;
+      return data;
     },
-    {
-      name: "Sarah Williams",
-      role: "CEO",
-      company: "Digital Ventures",
-      content: "Professional, creative, and easy to work with. Highly recommended! Ismail transformed our vision into a beautiful reality.",
-      rating: 5,
-    },
-    {
-      name: "Michael Chen",
-      role: "Startup Founder",
-      company: "InnovateLab",
-      content: "Amazing attention to detail. The final design exceeded expectations and perfectly captured our brand identity.",
-      rating: 5,
-    },
-  ];
+  });
 
   return (
     <section id="testimonials" className="section-padding">
@@ -37,10 +30,10 @@ const Testimonials = () => {
           </p>
         </div>
 
-        <div className="grid md:grid-cols-3 gap-8">
+        <div className="grid md:grid-cols-3 gap-8 mb-16">
           {testimonials.map((testimonial, index) => (
             <Card
-              key={index}
+              key={testimonial.id}
               className="p-8 card-hover relative animate-slide-up"
               style={{ animationDelay: `${index * 0.1}s` }}
             >
@@ -55,12 +48,18 @@ const Testimonials = () => {
               </p>
               <div className="border-t pt-4">
                 <p className="font-semibold">{testimonial.name}</p>
-                <p className="text-sm text-muted-foreground">{testimonial.role}</p>
-                <p className="text-sm text-primary">{testimonial.company}</p>
+                {testimonial.role && (
+                  <p className="text-sm text-muted-foreground">{testimonial.role}</p>
+                )}
+                {testimonial.company && (
+                  <p className="text-sm text-primary">{testimonial.company}</p>
+                )}
               </div>
             </Card>
           ))}
         </div>
+
+        <ReviewForm />
       </div>
     </section>
   );
