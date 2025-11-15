@@ -1,6 +1,10 @@
 import { ExternalLink } from "lucide-react";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
+import schoolWebImg from "@/assets/projects/school-web.jpg";
+import elearningAppImg from "@/assets/projects/elearning-app.jpg";
+import holyTrioImg from "@/assets/projects/holy-trio.jpg";
+import jtexWebsiteImg from "@/assets/projects/jtex-website.jpg";
 
 const Projects = () => {
   const projects = [
@@ -10,6 +14,7 @@ const Projects = () => {
       category: "Web Design",
       link: "https://www.figma.com/design/HnVBWuGxFEvPnmpqn8FHrQ/Untitled?node-id=6-2",
       tools: ["Figma", "UI/UX"],
+      image: schoolWebImg,
     },
     {
       title: "E-Learning App",
@@ -17,6 +22,7 @@ const Projects = () => {
       category: "App Design",
       link: "https://www.figma.com/design/EDaeRVv5pYD8C8PhBYaGpx/E-Learning-App",
       tools: ["Figma", "Mobile UI"],
+      image: elearningAppImg,
     },
     {
       title: "Holy Trio",
@@ -24,6 +30,7 @@ const Projects = () => {
       category: "Prototype",
       link: "https://www.figma.com/proto/6nHURraVdU05Jjq4uEBQfE?node-id=7-37",
       tools: ["Figma", "Prototyping"],
+      image: holyTrioImg,
     },
     {
       title: "JTex Website",
@@ -31,6 +38,7 @@ const Projects = () => {
       category: "Web Design",
       link: "https://www.figma.com/proto/Zbo4OaaX3JKzoFLgb8DQYj/JTEX?node-id=1-12",
       tools: ["Figma", "Branding"],
+      image: jtexWebsiteImg,
     },
   ];
 
@@ -52,6 +60,14 @@ const Projects = () => {
               className="overflow-hidden card-hover group animate-slide-up"
               style={{ animationDelay: `${index * 0.1}s` }}
             >
+              <div className="relative overflow-hidden">
+                <img
+                  src={project.image}
+                  alt={project.title}
+                  className="w-full h-64 object-cover transition-transform duration-500 group-hover:scale-110"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-background/80 to-transparent" />
+              </div>
               <div className="p-8">
                 <div className="mb-4">
                   <span className="text-sm font-semibold text-primary">{project.category}</span>
