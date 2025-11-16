@@ -10,34 +10,34 @@ import bannerDesign from "@/assets/graphics/banner-design.jpg";
 const Graphics = () => {
   const graphicsWork = [
     {
-      title: "Logo Design",
+      title: "Shayna Collection Logo",
       image: logoDesign,
-      category: "Branding",
-    },
-    {
-      title: "Social Media Graphics",
-      image: socialMedia,
-      category: "Digital Marketing",
-    },
-    {
-      title: "Event Poster",
-      image: posterDesign,
-      category: "Print Design",
-    },
-    {
-      title: "Abstract Illustration",
-      image: illustration,
-      category: "Digital Art",
-    },
-    {
-      title: "Business Cards",
-      image: branding,
       category: "Brand Identity",
     },
     {
-      title: "Web Banner",
+      title: "Shayna Collection Brand",
+      image: socialMedia,
+      category: "Logo Design",
+    },
+    {
+      title: "MIAONEFKK Branding",
+      image: posterDesign,
+      category: "Brand Identity",
+    },
+    {
+      title: "African Transactions 3D Logo",
+      image: illustration,
+      category: "3D Design",
+    },
+    {
+      title: "ATEEI Journal Cover",
+      image: branding,
+      category: "Publication Design",
+    },
+    {
+      title: "ATEEI Journal Layout",
       image: bannerDesign,
-      category: "Web Design",
+      category: "Publication Design",
     },
   ];
 
