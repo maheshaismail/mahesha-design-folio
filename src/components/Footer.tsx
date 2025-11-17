@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import logo from "@/assets/logo.jpg";
 
 const Footer = () => {
@@ -11,9 +12,15 @@ const Footer = () => {
           <p className="text-lg font-semibold mb-2">MIAONEFKK</p>
           <p className="text-sm text-white/70 mb-4">GRAPHICS • WEB • APPS</p>
           <p className="font-medium mb-2">Ismail Mahesha</p>
-          <p className="text-sm text-white/70">
+          <p className="text-sm text-white/70 mb-2">
             © {currentYear} All rights reserved. UI/UX Designer Portfolio
           </p>
+          <Link 
+            to="/admin" 
+            className="text-xs text-white/50 hover:text-white/80 transition-colors"
+          >
+            Admin
+          </Link>
         </div>
       </div>
     </footer>
