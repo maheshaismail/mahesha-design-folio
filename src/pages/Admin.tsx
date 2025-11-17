@@ -4,8 +4,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { useToast } from "@/hooks/use-toast";
-import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
-import { Star, X, LogOut } from "lucide-react";
+import { MessageSquare, LogOut } from "lucide-react";
 import Header from "@/components/Header";
 
 const Admin = () => {
@@ -14,7 +13,6 @@ const Admin = () => {
   const [isLoading, setIsLoading] = useState(true);
   const navigate = useNavigate();
   const { toast } = useToast();
-  const queryClient = useQueryClient();
 
   useEffect(() => {
     checkAuth();
@@ -58,47 +56,6 @@ const Admin = () => {
     }
   };
 
-  const { data: testimonials = [], isLoading: isLoadingTestimonials } = useQuery({
-    queryKey: ["admin-testimonials"],
-    queryFn: async () => {
-      const { data, error } = await supabase
-        .from("testimonials")
-        .select("*")
-        .order("created_at", { ascending: false });
-
-      if (error) throw error;
-      return data;
-    },
-    enabled: isAdmin,
-  });
-
-
-  const deleteTestimonialMutation = useMutation({
-    mutationFn: async (id: string) => {
-      const { error } = await supabase
-        .from("testimonials")
-        .delete()
-        .eq("id", id);
-
-      if (error) throw error;
-    },
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["admin-testimonials"] });
-      queryClient.invalidateQueries({ queryKey: ["testimonials"] });
-      toast({
-        title: "Success",
-        description: "Testimonial deleted successfully.",
-      });
-    },
-    onError: (error: any) => {
-      toast({
-        title: "Error",
-        description: error.message,
-        variant: "destructive",
-      });
-    },
-  });
-
   const handleLogout = async () => {
     await supabase.auth.signOut();
     navigate("/auth");
@@ -123,8 +80,8 @@ const Admin = () => {
       <div className="container-custom px-6 py-24">
         <div className="flex justify-between items-center mb-8">
           <div>
-            <h1 className="text-4xl font-bold mb-2">Admin Panel</h1>
-            <p className="text-muted-foreground">Manage testimonials</p>
+            <h1 className="text-4xl font-bold mb-2">Admin Dashboard</h1>
+            <p className="text-muted-foreground">Manage your portfolio</p>
           </div>
           <Button variant="outline" onClick={handleLogout}>
             <LogOut className="w-4 h-4 mr-2" />
@@ -132,53 +89,16 @@ const Admin = () => {
           </Button>
         </div>
 
-        {isLoadingTestimonials ? (
-          <div className="text-center py-12">
-            <p className="text-muted-foreground">Loading testimonials...</p>
-          </div>
-        ) : (
-          <div>
-            <h2 className="text-2xl font-bold mb-6">
-              All Testimonials ({testimonials.length})
-            </h2>
-            {testimonials.length === 0 ? (
-              <Card className="p-8 text-center">
-                <p className="text-muted-foreground">No testimonials yet</p>
-              </Card>
-            ) : (
-              <div className="grid md:grid-cols-2 gap-6">
-                {testimonials.map((testimonial) => (
-                  <Card key={testimonial.id} className="p-6">
-                    <div className="flex gap-1 mb-3">
-                      {[...Array(testimonial.rating)].map((_, i) => (
-                        <Star key={i} className="w-4 h-4 fill-secondary text-secondary" />
-                      ))}
-                    </div>
-                    <p className="text-muted-foreground mb-4">"{testimonial.content}"</p>
-                    <div className="border-t pt-4 mb-4">
-                      <p className="font-semibold">{testimonial.name}</p>
-                      {testimonial.role && (
-                        <p className="text-sm text-muted-foreground">{testimonial.role}</p>
-                      )}
-                      {testimonial.company && (
-                        <p className="text-sm text-primary">{testimonial.company}</p>
-                      )}
-                    </div>
-                    <Button
-                      size="sm"
-                      variant="destructive"
-                      onClick={() => deleteTestimonialMutation.mutate(testimonial.id)}
-                      disabled={deleteTestimonialMutation.isPending}
-                    >
-                      <X className="w-4 h-4 mr-1" />
-                      Delete
-                    </Button>
-                  </Card>
-                ))}
-              </div>
-            )}
-          </div>
-        )}
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <Card 
+            className="p-6 cursor-pointer hover:border-primary transition-colors"
+            onClick={() => navigate("/admin/reviews")}
+          >
+            <MessageSquare className="w-8 h-8 mb-4 text-primary" />
+            <h3 className="text-xl font-semibold mb-2">Manage Reviews</h3>
+            <p className="text-muted-foreground">View and delete submitted testimonials</p>
+          </Card>
+        </div>
       </div>
     </div>
   );
