@@ -20,7 +20,7 @@ const Projects = () => {
       title: "E-Learning App",
       description: "A mobile-first e-learning application designed to provide seamless online education experience with intuitive course navigation and interactive learning modules.",
       category: "App Design",
-      link: "https://www.figma.com/design/EDaeRVv5pYD8C8PhBYaGpx/E-Learning-App",
+      link: "https://www.figma.com/proto/EDaeRVv5pYD8C8PhBYaGpx/E-Learning-App?node-id=148-367",
       tools: ["Figma", "Mobile UI"],
       image: elearningAppImg,
     },
