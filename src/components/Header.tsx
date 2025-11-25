@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
 import { Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import logo from "@/assets/logo.jpg";
 
 const Header = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -32,9 +31,8 @@ const Header = () => {
     >
       <nav className="container-custom px-6 py-4">
         <div className="flex items-center justify-between">
-          <a href="#" className="flex items-center gap-3">
-            <img src={logo} alt="MIAONEFKK Logo" className="h-12 w-12 object-contain" />
-            <span className="text-xl font-bold text-gradient hidden sm:block">Ismail Mahesha</span>
+          <a href="#" className="flex items-center">
+            <span className="text-xl font-bold text-gradient">Ismail Mahesha</span>
           </a>
 
           {/* Desktop Menu */}
