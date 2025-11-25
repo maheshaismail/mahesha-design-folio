@@ -2,6 +2,8 @@ import { ArrowRight, Download } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import heroBg from "@/assets/hero-bg.jpg";
 import heroDoodles from "@/assets/hero-doodles.jpg";
+import heroMobile from "@/assets/hero-mobile.jpg";
+import heroGraphics from "@/assets/hero-graphics.jpg";
 
 const Hero = () => {
   return (
@@ -11,12 +13,22 @@ const Hero = () => {
         <img
           src={heroBg}
           alt="Hero Background"
-          className="w-full h-full object-cover animate-hero-bg-toggle"
+          className="w-full h-full object-cover animate-hero-bg-1"
         />
         <img
           src={heroDoodles}
           alt="Doodle Background"
-          className="absolute inset-0 w-full h-full object-cover animate-hero-bg-toggle-alt"
+          className="absolute inset-0 w-full h-full object-cover animate-hero-bg-2"
+        />
+        <img
+          src={heroMobile}
+          alt="Mobile Design Background"
+          className="absolute inset-0 w-full h-full object-cover animate-hero-bg-3"
+        />
+        <img
+          src={heroGraphics}
+          alt="Graphics Background"
+          className="absolute inset-0 w-full h-full object-cover animate-hero-bg-4"
         />
         <div className="absolute inset-0 hero-gradient opacity-90"></div>
       </div>
