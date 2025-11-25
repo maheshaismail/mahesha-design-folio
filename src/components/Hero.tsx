@@ -1,16 +1,22 @@
 import { ArrowRight, Download } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import heroBg from "@/assets/hero-bg.jpg";
+import heroDoodles from "@/assets/hero-doodles.jpg";
 
 const Hero = () => {
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden pt-20">
-      {/* Background Image with Overlay */}
+      {/* Animated Background Images with Overlay */}
       <div className="absolute inset-0 z-0">
         <img
           src={heroBg}
           alt="Hero Background"
-          className="w-full h-full object-cover"
+          className="w-full h-full object-cover animate-hero-bg-toggle"
+        />
+        <img
+          src={heroDoodles}
+          alt="Doodle Background"
+          className="absolute inset-0 w-full h-full object-cover animate-hero-bg-toggle-alt"
         />
         <div className="absolute inset-0 hero-gradient opacity-90"></div>
       </div>

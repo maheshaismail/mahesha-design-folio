@@ -121,6 +121,16 @@ export default {
             transform: "translateY(-20px)",
           },
         },
+        "hero-bg-toggle": {
+          "0%, 45%": { opacity: "1" },
+          "50%, 95%": { opacity: "0" },
+          "100%": { opacity: "1" },
+        },
+        "hero-bg-toggle-alt": {
+          "0%, 45%": { opacity: "0" },
+          "50%, 95%": { opacity: "1" },
+          "100%": { opacity: "0" },
+        },
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
@@ -128,6 +138,8 @@ export default {
         "fade-in": "fade-in 0.6s ease-out",
         "slide-up": "slide-up 0.6s ease-out",
         "float": "float 3s ease-in-out infinite",
+        "hero-bg-toggle": "hero-bg-toggle 8s ease-in-out infinite",
+        "hero-bg-toggle-alt": "hero-bg-toggle-alt 8s ease-in-out infinite",
       },
     },
   },
