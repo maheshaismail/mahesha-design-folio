@@ -1,6 +1,7 @@
 import { ExternalLink } from "lucide-react";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
+import { AnimatedSection } from "@/hooks/useScrollAnimation";
 import schoolWebImg from "@/assets/projects/school-web.jpg";
 import elearningAppImg from "@/assets/projects/elearning-app.jpg";
 import holyTrioImg from "@/assets/projects/holy-trio.jpg";
@@ -45,59 +46,64 @@ const Projects = () => {
   return (
     <section id="projects" className="section-padding">
       <div className="container-custom">
-        <div className="text-center mb-16 animate-fade-in">
+        <AnimatedSection animation="fade-up" className="text-center mb-16">
           <h2 className="text-4xl md:text-5xl font-bold mb-4">Featured Projects</h2>
-          <div className="w-20 h-1 bg-primary mx-auto mb-6"></div>
+          <div className="w-20 h-1 bg-primary mx-auto mb-6 transition-all duration-500 hover:w-32"></div>
           <p className="text-lg text-muted-foreground max-w-3xl mx-auto">
             A showcase of my recent work in web design, mobile apps, and interactive prototypes
           </p>
-        </div>
+        </AnimatedSection>
 
         <div className="grid md:grid-cols-2 gap-8">
           {projects.map((project, index) => (
-            <Card
+            <AnimatedSection
               key={index}
-              className="overflow-hidden card-hover group animate-slide-up"
-              style={{ animationDelay: `${index * 0.1}s` }}
+              animation={index % 2 === 0 ? "slide-left" : "slide-right"}
+              delay={index * 0.1}
             >
-              <div className="relative overflow-hidden">
-                <img
-                  src={project.image}
-                  alt={project.title}
-                  className="w-full h-64 object-cover transition-transform duration-500 group-hover:scale-110"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-background/80 to-transparent" />
-              </div>
-              <div className="p-8">
-                <div className="mb-4">
-                  <span className="text-sm font-semibold text-primary">{project.category}</span>
+              <Card className="overflow-hidden card-hover group h-full">
+                <div className="relative overflow-hidden img-zoom">
+                  <img
+                    src={project.image}
+                    alt={project.title}
+                    className="w-full h-64 object-cover"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-background/80 to-transparent opacity-60 group-hover:opacity-80 transition-opacity duration-500" />
                 </div>
-                <h3 className="text-2xl font-bold mb-3 group-hover:text-primary transition-colors">
-                  {project.title}
-                </h3>
-                <p className="text-muted-foreground mb-4">{project.description}</p>
-                <div className="flex flex-wrap gap-2 mb-6">
-                  {project.tools.map((tool, i) => (
-                    <span
-                      key={i}
-                      className="px-3 py-1 bg-muted rounded-full text-sm"
-                    >
-                      {tool}
+                <div className="p-8">
+                  <div className="mb-4">
+                    <span className="text-sm font-semibold text-primary transition-all duration-300 group-hover:tracking-wider">
+                      {project.category}
                     </span>
-                  ))}
+                  </div>
+                  <h3 className="text-2xl font-bold mb-3 group-hover:text-primary transition-colors duration-300">
+                    {project.title}
+                  </h3>
+                  <p className="text-muted-foreground mb-4">{project.description}</p>
+                  <div className="flex flex-wrap gap-2 mb-6">
+                    {project.tools.map((tool, i) => (
+                      <span
+                        key={i}
+                        className="px-3 py-1 bg-muted rounded-full text-sm transition-all duration-300 hover:bg-primary hover:text-primary-foreground"
+                      >
+                        {tool}
+                      </span>
+                    ))}
+                  </div>
+                  <Button variant="default" asChild className="group/btn">
+                    <a
+                      href={project.link}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex items-center gap-2"
+                    >
+                      View Project 
+                      <ExternalLink size={16} className="transition-transform duration-300 group-hover/btn:translate-x-1 group-hover/btn:-translate-y-1" />
+                    </a>
+                  </Button>
                 </div>
-                <Button variant="default" asChild>
-                  <a
-                    href={project.link}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex items-center gap-2"
-                  >
-                    View Project <ExternalLink size={16} />
-                  </a>
-                </Button>
-              </div>
-            </Card>
+              </Card>
+            </AnimatedSection>
           ))}
         </div>
       </div>
